@@ -64,29 +64,29 @@ export function RMDashboard() {
               <div className="p-12 text-center text-[#4A5568] font-medium">No customers found in your portfolio.</div>
             ) : (
               customers.map(customer => (
-                <div key={customer.id || (customer as any)._id} className="p-4 hover:bg-[#EDF2F7]/40 transition-colors flex items-center justify-between group">
+                <div key={customer._id} className="p-4 hover:bg-[#EDF2F7]/40 transition-colors flex items-center justify-between group">
                   <div className="flex items-center gap-4">
                     <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500/10 to-purple-500/10 border border-blue-500/20 flex items-center justify-center text-[#2B6CB0] font-bold text-lg shadow-inner">
-                      {customer.name?.charAt(0) || "C"}
+                      {customer.fullName?.charAt(0) || "C"}
                     </div>
                     <div>
-                      <Link href={`/customers/${customer.id || (customer as any)._id}`} className="text-[#0D1117] font-semibold group-hover:text-[#2B6CB0] transition-colors text-lg">
-                        {customer.name}
+                      <Link href={`/customers/${customer._id}`} className="text-[#0D1117] font-semibold group-hover:text-[#2B6CB0] transition-colors text-lg">
+                        {customer.fullName}
                       </Link>
-                      <p className="text-[#4A5568] text-sm">{customer.email}</p>
+                      <p className="text-[#4A5568] text-sm">{customer.email || `Client #${customer.clientNum}`}</p>
                     </div>
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-right hidden md:block">
-                      <p className="text-[#0D1117] text-sm font-semibold">${customer.totalBalance?.toLocaleString() || "0"}</p>
+                      <p className="text-[#0D1117] text-sm font-semibold">${customer.balance?.toLocaleString() || "0"}</p>
                       <p className="text-[#4A5568] text-xs uppercase tracking-wider font-medium">Balance</p>
                     </div>
                     <span className={`px-3 py-1 rounded-full text-xs font-bold tracking-wide border ${
-                      customer.riskLevel === 'High' ? 'bg-red-500/10 text-red-700 border-red-500/20' :
-                      customer.riskLevel === 'Medium' ? 'bg-yellow-500/10 text-yellow-700 border-yellow-500/20' :
+                      customer.riskSegment === 'High' ? 'bg-red-500/10 text-red-700 border-red-500/20' :
+                      customer.riskSegment === 'Medium' ? 'bg-yellow-500/10 text-yellow-700 border-yellow-500/20' :
                       'bg-emerald-500/10 text-emerald-700 border-emerald-500/20'
                     }`}>
-                      {customer.riskLevel || "Low"} Risk
+                      {customer.riskSegment || "Low"} Risk
                     </span>
                   </div>
                 </div>
