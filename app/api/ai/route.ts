@@ -141,7 +141,7 @@ ${customerContext ? `\n\nCURRENT CUSTOMER CONTEXT:\n${customerContext}` : '\nNo 
     ];
 
     const response = await model.invoke(messages);
-    const assistantMessage = response.content as string;
+    const assistantMessage = (response.content as string).replace(/\*/g, '');
 
     // Save to conversation
     conversation.messages.push({ role: 'user', content: message, timestamp: new Date() });
